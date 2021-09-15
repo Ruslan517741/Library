@@ -25,3 +25,27 @@ $('button').eq(2).on('click', ()=> {
 );
 
 $('.dropdown-toggle').dropdown(); */ /* -Динамическая загрузка элементов */
+$('#trigger').click(() => $('#trigger').createModal({
+    text: {
+        title: 'Modal title',
+        body: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non dolorum quod ut accusamus ipsa ullam voluptatibus amet, quibusdam, assumenda totam iusto voluptatem? Optio debitis nisi mollitia delectus eveniet! Tenetur, dolor?'
+    },
+    btns: {
+        count: 2,
+        settings: [
+            [
+                'Close',
+                ['btn-danger', 'mr-10'],
+                true
+            ],
+            [
+                'Save changes',
+                ['btn-success'],
+                false,
+                () => {
+                    alert('Данные сохранены');
+                }
+            ]
+        ]
+    }
+}));
