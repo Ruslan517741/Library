@@ -10,10 +10,12 @@ const postcss = require("gulp-postcss");
 
 // const dist = "/Applications/MAMP/htdocs/test"; // Ссылка на вашу папку на локальном сервере
 const dist = "./dist";
+const docs = "./docs";
 
 gulp.task("copy-html", () => {
     return gulp.src("./src/index.html")
                 .pipe(gulp.dest(dist))
+                .pipe(gulp.dest(docs))
                 .pipe(browsersync.stream());
 });
 
@@ -21,6 +23,7 @@ gulp.task("build-sass", () => {
     return gulp.src("./src/sass/style.scss")
                 .pipe(sass().on('error', sass.logError))
                 .pipe(gulp.dest(dist))
+                .pipe(gulp.dest(docs))
                 .pipe(browsersync.stream());
 });
 
@@ -53,6 +56,7 @@ gulp.task("build-js", () => {
                       }
                 }))
                 .pipe(gulp.dest(dist))
+                .pipe(gulp.dest(docs))
                 .on("end", browsersync.reload);
 });
 
@@ -75,7 +79,8 @@ gulp.task("prod", () => {
         .pipe(sass().on('error', sass.logError))
         .pipe(postcss([autoprefixer()]))
         .pipe(cleanCSS())
-        .pipe(gulp.dest(dist));
+        .pipe(gulp.dest(dist))
+        .pipe(gulp.dest(docs));
 
     return gulp.src("./src/js/main.js")
                 .pipe(webpack({
@@ -101,7 +106,8 @@ gulp.task("prod", () => {
                         ]
                       }
                 }))
-                .pipe(gulp.dest(dist));
+                .pipe(gulp.dest(dist))
+                .pipe(gulp.dest(docs));
 });
 
 gulp.task("default", gulp.parallel("watch", "build"));
