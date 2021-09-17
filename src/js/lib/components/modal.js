@@ -63,7 +63,7 @@ $.prototype.createModal = function({text, btns} = {}) {
 
         // btns = {count: num, settings: [[text, classNames=[], close, cb]]}
         const buttons = [];
-        for (let j = 0;j < btns.count; j++){
+        for (let j = 0; j < btns.count; j++){
             let btn = document.createElement('button');
             btn.classList.add('btn', ...btns.settings[j][1]);
             btn.textContent = btns.settings[j][0];
