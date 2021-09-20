@@ -72,22 +72,19 @@ $.prototype.carousel = function() {
 
 
 $.prototype.createCarousel = function({srcSlides = [], srcNextIcon = false, srcPrevIcon = false, textNextIcon = '', textPrevIcon = ''} = {}) {
-    function newElement (elemName, nodeName, className, parentName) {
+    /* function newElement (elemName, nodeName, className, parentName) {
         elemName = document.createElement(nodeName);
         elemName.classList.add(className);
         parentName.appendChild(elemName);
 
         return elemName;
-    }
+    } */
 
 
-    for (let i = 0; i < this.length; i++) {
-        let carouselIndicator;
-        newElement(carouselIndicator, 'ol', 'carousel-indicators', this[i]);
-        console.log(carouselIndicator);
-        /* let carouselIndicator = document.createElement('ol');
+    for (let i = 0; i < this.length; i++) {      
+        let carouselIndicator = document.createElement('ol');
         carouselIndicator.classList.add('carousel-indicators');
-        this[i].appendChild(carouselIndicator); */
+        this[i].appendChild(carouselIndicator);
         
         for (let i = 0; i < srcSlides.length; i++) {
             let listItem = document.createElement('li');

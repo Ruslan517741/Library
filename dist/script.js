@@ -202,20 +202,16 @@ _core__WEBPACK_IMPORTED_MODULE_0__["default"].prototype.createCarousel = functio
   textNextIcon = '',
   textPrevIcon = ''
 } = {}) {
-  function newElement(elemName, nodeName, className, parentName) {
-    elemName = document.createElement(nodeName);
-    elemName.classList.add(className);
-    parentName.appendChild(elemName);
-    return elemName;
-  }
-
+  /* function newElement (elemName, nodeName, className, parentName) {
+      elemName = document.createElement(nodeName);
+      elemName.classList.add(className);
+      parentName.appendChild(elemName);
+        return elemName;
+  } */
   for (let i = 0; i < this.length; i++) {
-    let carouselIndicator;
-    newElement(carouselIndicator, 'ol', 'carousel-indicators', this[i]);
-    console.log(carouselIndicator);
-    /* let carouselIndicator = document.createElement('ol');
+    let carouselIndicator = document.createElement('ol');
     carouselIndicator.classList.add('carousel-indicators');
-    this[i].appendChild(carouselIndicator); */
+    this[i].appendChild(carouselIndicator);
 
     for (let i = 0; i < srcSlides.length; i++) {
       let listItem = document.createElement('li');
@@ -1091,6 +1087,7 @@ Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])('.carousel').createCaro
   textNextIcon: '&gt;',
   textPrevIcon: '&lt;'
 });
+Object(_lib_lib__WEBPACK_IMPORTED_MODULE_0__["default"])().get('https://jsonplaceholder.typicode.com/todos/1').then(res => console.log(res));
 
 /***/ })
 
