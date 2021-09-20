@@ -49,3 +49,13 @@ $('#trigger').click(() => $('#trigger').createModal({
         ]
     }
 }));
+
+$('.carousel').createCarousel({
+    srcSlides: [
+        "https://www.rgo.ru/sites/default/files/styles/full_view/public/media/2020-12-14/peyzazh_stepanenko_nikolay_-_dolina_oseni_-_2020_-_515869.jpg?itok=BtvZDoAB",
+        "https://yablyk.com/wp-content/uploads/2017/05/golden-hour_in_photo.jpg",
+        "https://www.rgo.ru/sites/default/files/styles/head_image_article/public/node/43191/ufu6rqhu4e8.jpg?itok=-OTBfiTc"
+    ],
+    textNextIcon: '&gt;',
+    textPrevIcon: '&lt;'
+});

@@ -72,73 +72,89 @@ $.prototype.carousel = function() {
 
 
 $.prototype.createCarousel = function({srcSlides = [], srcNextIcon = false, srcPrevIcon = false, textNextIcon = '', textPrevIcon = ''} = {}) {
-    let carousel = document.createElement('div');
-    carousel.classList.add('carousel');
+    function newElement (elemName, nodeName, className, parentName) {
+        elemName = document.createElement(nodeName);
+        elemName.classList.add(className);
+        parentName.appendChild(elemName);
 
-    let carouselIndicator = document.createElement('ol');
-    carouselIndicator.classList.add('carousel-indicators');
-    carousel.appendChild(carouselIndicator);
-    
-    for (let i = 0; i < srcSlides.length; i++) {
-        let listItem = document.createElement('li');
-        listItem.setAttribute('data-slide-to', `${i}`);
-        carouselIndicator.appendChild(listItem);
-        if (i == 0) {
-            listItem.classList.add('active');
+        return elemName;
+    }
+
+
+    for (let i = 0; i < this.length; i++) {
+        let carouselIndicator;
+        newElement(carouselIndicator, 'ol', 'carousel-indicators', this[i]);
+        console.log(carouselIndicator);
+        /* let carouselIndicator = document.createElement('ol');
+        carouselIndicator.classList.add('carousel-indicators');
+        this[i].appendChild(carouselIndicator); */
+        
+        for (let i = 0; i < srcSlides.length; i++) {
+            let listItem = document.createElement('li');
+            listItem.setAttribute('data-slide-to', `${i}`);
+            carouselIndicator.appendChild(listItem);
+            if (i == 0) {
+                listItem.classList.add('active');
+            }
         }
+
+        let carouselInner = document.createElement('div');
+        carouselInner.classList.add('carousel-inner');
+        this[i].appendChild(carouselInner);
+
+        let carouselSlides = document.createElement('div');
+        carouselSlides.classList.add('carousel-slides');
+        carouselInner.appendChild(carouselSlides);
+
+        for (let i = 0; i < srcSlides.length; i++) {
+            let slide = document.createElement('div');
+            slide.classList.add('carousel-item');
+            slide.innerHTML = `
+            <img src=${srcSlides[i]} alt="photo">
+            `;
+            carouselSlides.appendChild(slide);
+        }
+
+        let prevContent, nextContent;
+
+        if (srcNextIcon) {
+            nextContent = `<img src=${srcNextIcon} alt="photo">`;
+        } else {
+            nextContent = textNextIcon;
+        }
+
+        if (srcPrevIcon) {
+            prevContent = `<img src=${srcPrevIcon} alt="photo">`;
+        } else {
+            prevContent = textPrevIcon;
+        }
+
+        let nextArrow = document.createElement('a');
+        nextArrow.classList.add('carousel-next');
+        nextArrow.setAttribute('href', '#');
+        nextArrow.setAttribute('data-slide', 'next');
+
+        let nextArrowSpan = document.createElement('span');
+        nextArrowSpan.classList.add('carousel-next-icon');
+        nextArrowSpan.innerHTML = `${nextContent}`;
+        nextArrow.appendChild(nextArrowSpan);
+
+        let prevArrow = document.createElement('a');
+        prevArrow.classList.add('carousel-prev');
+        prevArrow.setAttribute('href', '#');
+        prevArrow.setAttribute('data-slide', 'prev');
+
+        let prevArrowSpan = document.createElement('span');
+        prevArrowSpan.classList.add('carousel-prev-icon');
+        prevArrowSpan.innerHTML = `${prevContent}`;
+        prevArrow.appendChild(prevArrowSpan);
+
+        this[i].appendChild(nextArrow);
+        this[i].appendChild(prevArrow);
+        
     }
-
-    let carouselInner = document.createElement('div');
-    carouselInner.classList.add('carousel-inner');
-    carousel.appendChild(carouselInner);
-
-    let carouselSlides = document.createElement('div');
-    carouselSlides.classList.add('carousel-slides');
-    carouselInner.appendChild(carouselSlides);
-
-    for (let i = 0; i < srcSlides.length; i++) {
-        let slide = document.createElement('div');
-        slide.classList.add('carousel-item');
-        slide.innerHTML = `
-        <img src=${srcSlides[i]} alt="photo">
-        `;
-        carouselSlides.appendChild(slide);
-    }
-
-    let prevContent, nextContent;
-
-    if (srcNextIcon) {
-        nextContent = `<img src=${srcNextIcon} alt="photo">`;
-    } else {
-        nextContent = textNextIcon;
-    }
-
-    if (srcPrevIcon) {
-        prevContent = `<img src=${srcPrevIcon} alt="photo">`;
-    } else {
-        prevContent = srcPrevIcon;
-    }
-
-    carousel.innerHTML = `
-        <a href="#" class="carousel-prev" data-slide="prev">
-            <span class="carousel-prev-icon">${prevContent}</span>
-        </a>
-        <a href="#" class="carousel-next" data-slide="next">
-            <span class="carousel-next-icon">${nextContent}</span>
-        </a>
-    `;
-
-    document.body.appendChild(carousel);
+    $('.carousel').carousel();
 };
 
-$('.carousel').createCarousel({
-    srcSlides: [
-        "https://www.rgo.ru/sites/default/files/styles/full_view/public/media/2020-12-14/peyzazh_stepanenko_nikolay_-_dolina_oseni_-_2020_-_515869.jpg?itok=BtvZDoAB",
-        "https://yablyk.com/wp-content/uploads/2017/05/golden-hour_in_photo.jpg",
-        "https://www.rgo.ru/sites/default/files/styles/head_image_article/public/node/43191/ufu6rqhu4e8.jpg?itok=-OTBfiTc"
-    ],
-    textNextIcon: '&lt;',
-    textPrevIcon: '&gt;'
-});
 
-$('.carousel').carousel();
+
